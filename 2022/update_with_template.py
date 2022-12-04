@@ -3,7 +3,7 @@ import shutil
 from pathlib import Path
 import filecmp
 
-MIN_DAY = 26
+MIN_DAY = 5
 MAX_DAY = 25
 TEMPLATE_DIR_PATH = Path.cwd() / 'template'
 

@@ -1,6 +1,6 @@
 def getInputStr(inputFileName):
 	with open(inputFileName, 'r') as inputFile:
-		return inputFile.read()
+		return inputFile.readlines()
 
 def getTransformedInput(inputFileName):
 	return getInputStr(inputFileName)
