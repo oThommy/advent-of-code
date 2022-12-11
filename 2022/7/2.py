@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
-
+from functools import cached_property
 
 def getInputStr(inputFileName):
 	with open(inputFileName, 'r') as inputFile:
@@ -22,7 +22,6 @@ class Directory:
 	fileLst: list = field(init=False, default_factory=list)
 	directoryLst: list = field(init=False, default_factory=list)
 	fileLst: list = field(init=False, default_factory=list)
-	cachedSize: Optional[int] = field(init=False, default=None)
 
 	def addFile(self, file):
 		self.fileLst.append(file)
@@ -47,22 +46,20 @@ class Directory:
 
 		return res
 
-	def getSize(self):
-		if self.cachedSize is not None:
-			return self.cachedSize
-
-		self.cachedSize = 0
+	@cached_property
+	def size(self):
+		size = 0
 
 		for file in self.fileLst:
-			self.cachedSize += file.size
+			size += file.size
 		
 		if not self.directoryLst:
-			return self.cachedSize
+			return size
 		
 		for directory in self.directoryLst:
-			self.cachedSize += directory.getSize()
+			size += directory.size
 		
-		return self.cachedSize
+		return size
 
 	def __repr__(self):
 		return self.name
@@ -105,8 +102,8 @@ def main():
 
 	print(rootDirectory.getTreeStr())
 
-	requiredFreeSpace = 3 * 10**7 - (7 * 10**7 - rootDirectory.getSize())
-	print(min(directory.getSize() for directory in directoryLst if directory.getSize() >= requiredFreeSpace))
+	requiredFreeSpace = 3 * 10**7 - (7 * 10**7 - rootDirectory.size)
+	print(min(directory.size for directory in directoryLst if directory.size >= requiredFreeSpace))
 
 
 if __name__ == '__main__':
