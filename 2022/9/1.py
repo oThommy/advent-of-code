@@ -50,13 +50,20 @@ def main():
 
 		match direction:
 			case 'U':
-				tail, head, tailLocations = simulateMotion(0, 1, steps, tail, head, tailLocations)
+				deltaX = 0
+				deltaY = 1
 			case 'R':
-				tail, head, tailLocations = simulateMotion(1, 0, steps, tail, head, tailLocations)
+				deltaX = 1
+				deltaY = 0
 			case 'D':
-				tail, head, tailLocations = simulateMotion(0, -1, steps, tail, head, tailLocations)
+				deltaX = 0
+				deltaY = -1
 			case 'L':
-				tail, head, tailLocations = simulateMotion(-1, 0, steps, tail, head, tailLocations)
+				deltaX = -1
+				deltaY = 0
+
+		tail, head, tailLocations = simulateMotion(deltaX, deltaY, steps, tail, head, tailLocations)
+		
 
 	print(len(tailLocations))
 

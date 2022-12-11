@@ -1,4 +1,6 @@
-from dataclasses import dataclass
+from __future__ import annotations
+from dataclasses import dataclass, field
+from typing import Optional
 
 def getInputStr(inputFileName):
 	with open(inputFileName, 'r') as inputFile:
@@ -12,13 +14,14 @@ class File:
 	name: str
 	size: int
 
+@dataclass
 class Directory:
-	def __init__(self, name, parentDirectory=None):
-		self.name = name
-		self.parentDirectory = parentDirectory
-		self.fileLst = []
-		self.directoryLst = []
-		self.cachedSize = None
+	name: str
+	parentDirectory: Optional[Directory] = None
+	fileLst: list = field(init=False, default_factory=list)
+	directoryLst: list = field(init=False, default_factory=list)
+	fileLst: list = field(init=False, default_factory=list)
+	cachedSize: Optional[int] = field(init=False, default=None)
 
 	def addFile(self, file):
 		self.fileLst.append(file)

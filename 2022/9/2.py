@@ -57,13 +57,20 @@ def main():
 
 		match direction:
 			case 'U':
-				ropeKnots, tailLocations = simulateMotion(0, 1, steps, ropeKnots, tailLocations)
+				deltaX = 0
+				deltaY = 1
 			case 'R':
-				ropeKnots, tailLocations = simulateMotion(1, 0, steps, ropeKnots, tailLocations)
+				deltaX = 1
+				deltaY = 0
 			case 'D':
-				ropeKnots, tailLocations = simulateMotion(0, -1, steps, ropeKnots, tailLocations)
+				deltaX = 0
+				deltaY = -1
 			case 'L':
-				ropeKnots, tailLocations = simulateMotion(-1, 0, steps, ropeKnots, tailLocations)
+				deltaX = -1
+				deltaY = 0
+		
+		ropeKnots, tailLocations = simulateMotion(deltaX, deltaY, steps, ropeKnots, tailLocations)
+		
 
 	print(len(tailLocations))
 
